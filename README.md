@@ -8,12 +8,14 @@ Guests receive a printed honeymoon greeting card containing a QR code. The QR
 must point to a permanent public URL whose address never changes, even when the
 website behind it is fully redesigned and reimplemented.
 
-This repository currently contains a **minimal placeholder** so that the URL is
-live and printable immediately. The full experience is not built yet.
+This repository serves a live guided honeymoon experience for a single guest,
+Mr. Agus. The URL is stable and printable now; the content can be redesigned
+later without changing the URL.
 
 ## Current status
 
-Placeholder. A single static page that says the experience is being prepared.
+Live. A three-step guided experience (Welcome, A Message, Closing) in a single
+static HTML file with inline CSS/JS. No build step, no dependencies.
 
 ## Public URL
 
@@ -49,17 +51,28 @@ Do **not** encode into a QR:
 
 ## Routing
 
-| Path                | Served by                                   |
-| ------------------- | ------------------------------------------- |
-| `/`                 | `index.html` (redirects to the demo route)  |
-| `/honeymoon/demo/`  | `honeymoon/demo/index.html` (placeholder)   |
+| Path                | Served by                                    |
+| ------------------- | -------------------------------------------- |
+| `/`                 | `index.html` (redirects to the demo route)   |
+| `/honeymoon/demo/`  | `honeymoon/demo/index.html` (guided experience) |
 
 Routes map to directories with an `index.html`, so no server or SPA router is
-required. GitHub Pages serves them directly.
+required. Caddy serves them directly.
+
+## Experience
+
+Single guest (Mr. Agus), single static file, three steps:
+
+1. **Welcome** — greeting with the guest name.
+2. **A Message** — personal message signed by the resort.
+3. **Closing** — thank you.
+
+Navigation: Next/Back buttons, progress dots, arrow keys, Enter, and touch swipe.
+Respects `prefers-reduced-motion`. Works without JS as a vertical fallback.
 
 ## Future token architecture
 
-The final experience will serve per-guest routes:
+The final experience may serve per-guest routes:
 
 ```
 /honeymoon/:token      e.g. /honeymoon/7xK92mQ
@@ -68,20 +81,16 @@ The final experience will serve per-guest routes:
 - The QR encodes only the public entry path (`/honeymoon/demo/` at print time).
 - A random **token** identifies the guest experience.
 - **No personal guest information is ever encoded in the URL.**
-- The token backend is not implemented yet. `demo` is a reserved placeholder
-  token for now.
+- Not implemented yet. The current build hardcodes a single guest. Add a token
+  source only when more than one guest needs the experience.
 
-## Replacing the placeholder with the final website
+## Replacing the experience content
 
-1. Build the final BCC Resort honeymoon experience (React/TypeScript or any
-   static output).
-2. Make its production build resolve `/honeymoon/demo/` (and later
-   `/honeymoon/:token`) to the app entry — copy the build output into this
-   repository's directory structure, or add a build workflow that does so.
-3. Keep the `/honeymoon/demo/` path working, or add a `404.html` fallback that
-   routes unknown `/honeymoon/*` paths into the app.
-4. Push to `main`. then deploy to the VPS as described above.
-5. **Do not change the printed URL and do not regenerate the QR code.**
+1. Edit `honeymoon/demo/index.html` (or build a final React/TypeScript output
+   and place it at the same path).
+2. Keep the `/honeymoon/demo/` route working.
+3. Deploy to the VPS as described below.
+4. **Do not change the printed URL and do not regenerate the QR code.**
 
 ## Deployment
 
@@ -99,6 +108,12 @@ cp -r index.html honeymoon .nojekyll /var/www/bcc-resort-honeymoon/
 # 2. Only after editing the Caddyfile:
 caddy validate --config /etc/caddy/Caddyfile
 systemctl reload caddy
+```
+
+### Tests
+
+```sh
+node test/check.mjs   # asserts the 3 steps and required content markers
 ```
 
 ### Caddyfile
