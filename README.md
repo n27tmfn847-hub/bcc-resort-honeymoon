@@ -9,13 +9,14 @@ must point to a permanent public URL whose address never changes, even when the
 website behind it is fully redesigned and reimplemented.
 
 This repository serves a live guided honeymoon experience for a single guest,
-Mr. Agus. The URL is stable and printable now; the content can be redesigned
+Mr. Alex. The URL is stable and printable now; the content can be redesigned
 later without changing the URL.
 
 ## Current status
 
-Live. A three-step guided experience (Welcome, A Message, Closing) in a single
-static HTML file with inline CSS/JS. No build step, no dependencies.
+Live. A four-step guided experience (Welcome, A Message, Thank You, Our Team) in
+a single static HTML file with inline CSS/JS. Fully in English. No build step,
+no dependencies.
 
 ## Public URL
 
@@ -61,11 +62,16 @@ required. Caddy serves them directly.
 
 ## Experience
 
-Single guest (Mr. Agus), single static file, three steps:
+Single guest (Mr. Alex), single static file, four steps, English:
 
 1. **Welcome** — greeting with the guest name.
 2. **A Message** — personal message signed by the resort.
-3. **Closing** — thank you.
+3. **Thank You** — closing.
+4. **Our Team** — the staff looking after the stay:
+   - I Made Sukra Mahardika
+   - Ni Putu Bunga Mentari
+   - I Putu Pradita Wiguna
+   - I Kadek Dwi Adnyana
 
 Navigation: Next/Back buttons, progress dots, arrow keys, Enter, and touch swipe.
 Respects `prefers-reduced-motion`. Works without JS as a vertical fallback.
@@ -113,7 +119,7 @@ systemctl reload caddy
 ### Tests
 
 ```sh
-node test/check.mjs   # asserts the 3 steps and required content markers
+node test/check.mjs   # asserts the 4 steps and required content markers
 ```
 
 ### Caddyfile

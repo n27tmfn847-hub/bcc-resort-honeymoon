@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>BCC Resort — Pengalaman Bulan Madu</title>
-  <meta name="description" content="Pengalaman bulan madu eksklusif untuk Mr. Agus di BCC Resort." />
+  <title>BCC Resort — Honeymoon Experience</title>
+  <meta name="description" content="An exclusive honeymoon experience for Mr. Alex at BCC Resort." />
   <meta name="theme-color" content="#0f0d0b" />
   <link rel="canonical" href="https://bulanmadu.dikapersonal.my.id/honeymoon/demo/" />
   <style>
@@ -48,6 +48,7 @@
       opacity: 0.85;
     }
     .rule.top { margin-bottom: clamp(2rem, 6vh, 3.25rem); }
+    .rule.bottom { margin-top: clamp(2rem, 7vh, 3rem); }
 
     .brand {
       font-family: "Helvetica Neue", Arial, sans-serif;
@@ -113,7 +114,18 @@
       opacity: 0.7;
     }
 
-    .rule.bottom { margin-top: clamp(2rem, 7vh, 3rem); }
+    /* ---- team ---- */
+    .team-list {
+      list-style: none;
+      margin: 2.25rem auto 0;
+      max-width: 26rem;
+    }
+    .team-list li {
+      padding: 0.95rem 0;
+      font-size: clamp(1.02rem, 3.4vw, 1.18rem);
+      letter-spacing: 0.01em;
+    }
+    .team-list li + li { border-top: 1px solid var(--gold-soft); }
 
     /* ---- controls ---- */
     .controls {
@@ -135,7 +147,7 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background 0.35s var(--ease), border-color 0.35s var(--ease), opacity 0.35s var(--ease);
+      transition: background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease);
     }
     .nav-btn:hover,
     .nav-btn:focus-visible {
@@ -203,33 +215,46 @@
     <p class="brand">BCC Resort</p>
 
     <div class="steps" aria-live="polite">
-      <section class="step active" id="step-1" data-step="1" aria-label="Langkah 1 dari 3">
-        <p class="eyebrow">Pengalaman Bulan Madu</p>
-        <h1>Selamat datang,<br /><span class="name">Mr. Agus</span></h1>
-        <p class="message">&ldquo;Sebuah perjalanan istimewa kini dimulai. Kami telah menyiapkan momen ini khusus untuk Anda dan pasangan.&rdquo;</p>
+      <section class="step active" id="step-1" data-step="1" aria-label="Step 1 of 4">
+        <p class="eyebrow">Honeymoon Experience</p>
+        <h1>Welcome,<br /><span class="name">Mr. Alex</span></h1>
+        <p class="message">&ldquo;An extraordinary journey begins now. We have prepared this moment especially for you and your beloved.&rdquo;</p>
         <div class="rule bottom" aria-hidden="true"></div>
       </section>
 
-      <section class="step" id="step-2" data-step="2" aria-label="Langkah 2 dari 3" hidden>
-        <p class="eyebrow">Sebuah Pesan</p>
-        <h1>Untuk Anda berdua</h1>
-        <p class="message">&ldquo;Bulan madu bukan sekadar liburan, melainkan awal dari kisah panjang yang akan Anda tulis bersama. Semoga setiap momen di BCC Resort menjadi kenangan yang abadi.&rdquo;</p>
+      <section class="step" id="step-2" data-step="2" aria-label="Step 2 of 4" hidden>
+        <p class="eyebrow">A Message</p>
+        <h1>For the two of you</h1>
+        <p class="message">&ldquo;A honeymoon is not merely a holiday, but the opening chapter of a long story you will write together. May every moment at BCC Resort become a memory that lasts forever.&rdquo;</p>
         <p class="signature">— BCC Resort</p>
       </section>
 
-      <section class="step" id="step-3" data-step="3" aria-label="Langkah 3 dari 3" hidden>
-        <p class="eyebrow">Terima Kasih</p>
-        <h1>Menjadi bagian<br />dari cerita Anda</h1>
-        <p class="message">Kami merasa terhormat dapat berbagi kebahagiaan ini bersama Anda.</p>
-        <p class="soon">Sampai jumpa di BCC Resort.</p>
+      <section class="step" id="step-3" data-step="3" aria-label="Step 3 of 4" hidden>
+        <p class="eyebrow">Thank You</p>
+        <h1>For letting us be part<br />of your story</h1>
+        <p class="message">It is our honor to share this happiness with you.</p>
+        <p class="soon">See you at BCC Resort.</p>
         <div class="rule bottom" aria-hidden="true"></div>
+      </section>
+
+      <section class="step" id="step-4" data-step="4" aria-label="Step 4 of 4" hidden>
+        <p class="eyebrow">Our Team</p>
+        <h1>The people behind<br />your stay</h1>
+        <p class="message">The team who will look after every detail of your experience.</p>
+        <ul class="team-list">
+          <li>I Made Sukra Mahardika</li>
+          <li>Ni Putu Bunga Mentari</li>
+          <li>I Putu Pradita Wiguna</li>
+          <li>I Kadek Dwi Adnyana</li>
+        </ul>
+        <p class="signature">— With warm regards, BCC Resort</p>
       </section>
     </div>
 
     <div class="controls" id="controls" hidden>
-      <button class="nav-btn" id="btn-prev" type="button" aria-label="Langkah sebelumnya">Kembali</button>
-      <div class="dots" id="dots" role="tablist" aria-label="Navigasi langkah"></div>
-      <button class="nav-btn" id="btn-next" type="button" aria-label="Langkah berikutnya">Lanjut</button>
+      <button class="nav-btn" id="btn-prev" type="button" aria-label="Previous step">Back</button>
+      <div class="dots" id="dots" role="tablist" aria-label="Step navigation"></div>
+      <button class="nav-btn" id="btn-next" type="button" aria-label="Next step">Next</button>
     </div>
   </main>
 
@@ -249,7 +274,7 @@
         var b = document.createElement("button");
         b.type = "button";
         b.setAttribute("role", "tab");
-        b.setAttribute("aria-label", "Langkah " + (i + 1));
+        b.setAttribute("aria-label", "Step " + (i + 1));
         b.addEventListener("click", function () { go(i); });
         dotsWrap.appendChild(b);
         return b;
