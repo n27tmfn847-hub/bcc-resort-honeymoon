@@ -17,22 +17,21 @@ Placeholder. A single static page that says the experience is being prepared.
 
 ## Public URL
 
-Permanent custom domain (GitHub Pages, no build step, served from the repository
-root on `main`):
+Permanent custom domain, served from this VPS (Caddy, static files):
 
 ```
-https://honeymoon.hercules.my.id
+https://bulanmadu.dikapersonal.my.id
 ```
 
-The old project URL `https://n27tmfn847-hub.github.io/bcc-resort-honeymoon/`
-redirects to the custom domain.
+Host: VPS `159.223.42.25`. Web server: Caddy (config
+`/etc/caddy/Caddyfile`). Site root: `/var/www/bcc-resort-honeymoon/`.
 
 ### QR code target
 
 The QR code printed on the greeting card must encode exactly:
 
 ```
-https://honeymoon.hercules.my.id/honeymoon/demo/
+https://bulanmadu.dikapersonal.my.id/honeymoon/demo/
 ```
 
 > **IMPORTANT:** The QR code should continue pointing to the same URL even when
@@ -81,25 +80,39 @@ The final experience will serve per-guest routes:
    repository's directory structure, or add a build workflow that does so.
 3. Keep the `/honeymoon/demo/` path working, or add a `404.html` fallback that
    routes unknown `/honeymoon/*` paths into the app.
-4. Push to `main`. GitHub Pages redeploys automatically.
+4. Push to `main`. then deploy to the VPS as described above.
 5. **Do not change the printed URL and do not regenerate the QR code.**
 
 ## Deployment
 
-Static hosting via GitHub Pages, source = `main` branch, root folder
-(`/`). The custom domain is set via the `CNAME` file
-(`honeymoon.hercules.my.id`). No build command, no dependencies. Pushing to
-`main` updates the live site. The `.nojekyll` file disables Jekyll processing.
+Static hosting on the VPS under Caddy. The `main` branch holds the source of
+truth; deploy by copying the site files to `/var/www/bcc-resort-honeymoon/`
+(Caddy reload not needed for static file changes). No build command, no
+dependencies. The `.nojekyll` file disables Jekyll processing.
+
+### Deployment steps
+
+```sh
+# 1. Sync files to the web root
+cp -r index.html honeymoon .nojekyll /var/www/bcc-resort-honeymoon/
+
+# 2. Only after editing the Caddyfile:
+caddy validate --config /etc/caddy/Caddyfile
+systemctl reload caddy
+```
+
+### Caddyfile
+
+```
+bulanmadu.dikapersonal.my.id {
+	root * /var/www/bcc-resort-honeymoon
+	file_server
+}
+```
+
+Caddy obtains and renews the Let's Encrypt TLS certificate automatically.
 
 ### DNS
 
-The custom subdomain requires one record at the DNS provider for
-`hercules.my.id` (Cloudflare):
-
-| Type  | Host       | Target                  | TTL  |
-| ----- | ---------- | ----------------------- | ---- |
-| CNAME | `honeymoon` | `n27tmfn847-hub.github.io` | 3600 |
-
-Do not add `http://`, `https://`, a path, or a trailing slash to the target.
-If the record is proxied (Cloudflare orange cloud), set it to **DNS only** (grey
-cloud) until GitHub issues the TLS certificate, then HTTPS can be enforced.
+`bulanmadu.dikapersonal.my.id` resolves to this VPS (`159.223.42.25`). Provider
+for `dikapersonal.my.id` is `ns1/ns2.clouden.id`. No further DNS change needed.
