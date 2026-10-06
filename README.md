@@ -17,28 +17,29 @@ Placeholder. A single static page that says the experience is being prepared.
 
 ## Public URL
 
-GitHub Pages project site (no build step, served from the repository root on
-`main`):
+Permanent custom domain (GitHub Pages, no build step, served from the repository
+root on `main`):
 
 ```
-https://n27tmfn847-hub.github.io/bcc-resort-honeymoon/honeymoon/demo/
+https://honeymoon.hercules.my.id
 ```
+
+The old project URL `https://n27tmfn847-hub.github.io/bcc-resort-honeymoon/`
+redirects to the custom domain.
 
 ### QR code target
 
 The QR code printed on the greeting card must encode exactly:
 
 ```
-https://n27tmfn847-hub.github.io/bcc-resort-honeymoon/honeymoon/demo/
+https://honeymoon.hercules.my.id/honeymoon/demo/
 ```
 
 > **IMPORTANT:** The QR code should continue pointing to the same URL even when
 > the website design/content is replaced. Never regenerate the QR for a new
 > design. Keep this path stable forever.
 
-After a custom domain is attached, the same path becomes
-`https://<custom-domain>/honeymoon/demo/`. Only regenerate the QR at that single,
-deliberate migration and retire the old URL afterwards.
+This is the permanent hostname. Do not migrate again.
 
 Do **not** encode into a QR:
 
@@ -86,5 +87,19 @@ The final experience will serve per-guest routes:
 ## Deployment
 
 Static hosting via GitHub Pages, source = `main` branch, root folder
-(`/`). No build command, no dependencies. Pushing to `main` updates the live
-site. The `.nojekyll` file disables Jekyll processing.
+(`/`). The custom domain is set via the `CNAME` file
+(`honeymoon.hercules.my.id`). No build command, no dependencies. Pushing to
+`main` updates the live site. The `.nojekyll` file disables Jekyll processing.
+
+### DNS
+
+The custom subdomain requires one record at the DNS provider for
+`hercules.my.id` (Cloudflare):
+
+| Type  | Host       | Target                  | TTL  |
+| ----- | ---------- | ----------------------- | ---- |
+| CNAME | `honeymoon` | `n27tmfn847-hub.github.io` | 3600 |
+
+Do not add `http://`, `https://`, a path, or a trailing slash to the target.
+If the record is proxied (Cloudflare orange cloud), set it to **DNS only** (grey
+cloud) until GitHub issues the TLS certificate, then HTTPS can be enforced.
