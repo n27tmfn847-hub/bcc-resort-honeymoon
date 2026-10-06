@@ -1,82 +1,299 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BCC Resort — Honeymoon Experience</title>
-  <meta name="description" content="BCC Resort Honeymoon Experience. Your special experience is being prepared." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BCC Resort — Pengalaman Bulan Madu</title>
+  <meta name="description" content="Pengalaman bulan madu eksklusif untuk Mr. Agus di BCC Resort." />
+  <meta name="theme-color" content="#0f0d0b" />
   <link rel="canonical" href="https://bulanmadu.dikapersonal.my.id/honeymoon/demo/" />
   <style>
     :root {
       --bg: #0f0d0b;
+      --panel: #17130f;
       --ink: #f4efe7;
       --muted: #b8a98f;
       --gold: #c9a24b;
+      --gold-soft: rgba(201, 162, 75, 0.35);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    html { -webkit-text-size-adjust: 100%; }
     body {
-      background: radial-gradient(circle at 50% 30%, #1c1712 0%, var(--bg) 70%);
+      min-height: 100svh;
+      background: radial-gradient(circle at 50% 22%, #1c1712 0%, var(--bg) 68%);
       color: var(--ink);
       font-family: Georgia, "Times New Roman", serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      min-height: 100svh;
+      padding: clamp(1.5rem, 5vw, 3rem);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    main { max-width: 34rem; }
+
+    .stage {
+      width: 100%;
+      max-width: 38rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
     .rule {
       width: 3rem;
       height: 1px;
       background: var(--gold);
-      margin: 0 auto 2rem;
-      opacity: 0.8;
+      opacity: 0.85;
     }
+    .rule.top { margin-bottom: clamp(2rem, 6vh, 3.25rem); }
+
     .brand {
-      font-size: 0.8rem;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.74rem;
       letter-spacing: 0.42em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 1.4rem;
+      margin-bottom: clamp(2rem, 7vh, 3.5rem);
     }
+
+    .step {
+      display: none;
+      width: 100%;
+      animation: rise 0.7s var(--ease) both;
+    }
+    .step.active { display: block; }
+
+    .eyebrow {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.35rem;
+    }
+
     h1 {
-      font-size: clamp(2rem, 7vw, 3.25rem);
+      font-size: clamp(2rem, 7.6vw, 3.4rem);
       font-weight: 400;
-      line-height: 1.12;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.6rem;
+      line-height: 1.1;
+      letter-spacing: 0.015em;
+      margin-bottom: 1.5rem;
     }
+    h1 .name { color: var(--gold); font-style: italic; }
+
     .message {
-      font-size: clamp(1rem, 3.4vw, 1.2rem);
+      font-size: clamp(1.02rem, 3.6vw, 1.24rem);
       font-style: italic;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
+      max-width: 30rem;
+      margin: 0 auto;
     }
-    .soon {
-      margin-top: 2.6rem;
+    .message + .message { margin-top: 1.15rem; }
+
+    .signature {
+      margin-top: 2rem;
       font-family: "Helvetica Neue", Arial, sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.9;
+    }
+
+    .soon {
+      margin-top: clamp(2rem, 7vh, 3rem);
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.68rem;
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: var(--muted);
-      opacity: 0.75;
+      opacity: 0.7;
     }
+
+    .rule.bottom { margin-top: clamp(2rem, 7vh, 3rem); }
+
+    /* ---- controls ---- */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: clamp(1.75rem, 5vh, 2.5rem);
+      min-height: 2.75rem;
+    }
+    .nav-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--gold-soft);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 0.72rem 1.6rem;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.35s var(--ease), border-color 0.35s var(--ease), opacity 0.35s var(--ease);
+    }
+    .nav-btn:hover,
+    .nav-btn:focus-visible {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #100c07;
+      outline: none;
+    }
+    .nav-btn:focus-visible { box-shadow: 0 0 0 3px var(--gold-soft); }
+    .nav-btn[hidden] { visibility: hidden; display: inline-block; }
+
+    .dots { display: flex; gap: 0.7rem; align-items: center; }
+    .dots button {
+      appearance: none;
+      border: none;
+      padding: 0.45rem 0.25rem;
+      background: transparent;
+      cursor: pointer;
+      line-height: 0;
+    }
+    .dots button::before {
+      content: "";
+      display: block;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: var(--muted);
+      opacity: 0.4;
+      transition: all 0.35s var(--ease);
+    }
+    .dots button[aria-current="step"]::before {
+      background: var(--gold);
+      opacity: 1;
+      width: 1.5rem;
+    }
+    .dots button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--gold-soft); border-radius: 999px; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+
     @media (prefers-color-scheme: light) {
-      :root { --bg: #f7f2ea; --ink: #211b14; --muted: #6f6350; --gold: #9a7822; }
-      body { background: radial-gradient(circle at 50% 30%, #fffdf9 0%, var(--bg) 72%); }
+      :root {
+        --bg: #f7f2ea;
+        --panel: #fffdf9;
+        --ink: #211b14;
+        --muted: #6f6350;
+        --gold: #9a7822;
+        --gold-soft: rgba(154, 120, 34, 0.35);
+      }
+      body { background: radial-gradient(circle at 50% 22%, #fffdf9 0%, var(--bg) 70%); }
+      .nav-btn:hover, .nav-btn:focus-visible { color: #fffdf9; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .step { animation: none; }
+      * { transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <div class="rule"></div>
+  <main class="stage">
+    <div class="rule top" aria-hidden="true"></div>
     <p class="brand">BCC Resort</p>
-    <h1>Honeymoon Experience</h1>
-    <p class="message">&ldquo;Your special experience is being prepared.&rdquo;</p>
-    <p class="soon">Please return soon.</p>
+
+    <div class="steps" aria-live="polite">
+      <section class="step active" id="step-1" data-step="1" aria-label="Langkah 1 dari 3">
+        <p class="eyebrow">Pengalaman Bulan Madu</p>
+        <h1>Selamat datang,<br /><span class="name">Mr. Agus</span></h1>
+        <p class="message">&ldquo;Sebuah perjalanan istimewa kini dimulai. Kami telah menyiapkan momen ini khusus untuk Anda dan pasangan.&rdquo;</p>
+        <div class="rule bottom" aria-hidden="true"></div>
+      </section>
+
+      <section class="step" id="step-2" data-step="2" aria-label="Langkah 2 dari 3" hidden>
+        <p class="eyebrow">Sebuah Pesan</p>
+        <h1>Untuk Anda berdua</h1>
+        <p class="message">&ldquo;Bulan madu bukan sekadar liburan, melainkan awal dari kisah panjang yang akan Anda tulis bersama. Semoga setiap momen di BCC Resort menjadi kenangan yang abadi.&rdquo;</p>
+        <p class="signature">— BCC Resort</p>
+      </section>
+
+      <section class="step" id="step-3" data-step="3" aria-label="Langkah 3 dari 3" hidden>
+        <p class="eyebrow">Terima Kasih</p>
+        <h1>Menjadi bagian<br />dari cerita Anda</h1>
+        <p class="message">Kami merasa terhormat dapat berbagi kebahagiaan ini bersama Anda.</p>
+        <p class="soon">Sampai jumpa di BCC Resort.</p>
+        <div class="rule bottom" aria-hidden="true"></div>
+      </section>
+    </div>
+
+    <div class="controls" id="controls" hidden>
+      <button class="nav-btn" id="btn-prev" type="button" aria-label="Langkah sebelumnya">Kembali</button>
+      <div class="dots" id="dots" role="tablist" aria-label="Navigasi langkah"></div>
+      <button class="nav-btn" id="btn-next" type="button" aria-label="Langkah berikutnya">Lanjut</button>
+    </div>
   </main>
+
+  <script>
+    (function () {
+      var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
+      var dotsWrap = document.getElementById("dots");
+      var btnPrev = document.getElementById("btn-prev");
+      var btnNext = document.getElementById("btn-next");
+      var controls = document.getElementById("controls");
+
+      if (steps.length < 2) return;
+      controls.hidden = false;
+
+      var current = 0;
+      var dots = steps.map(function (_, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-label", "Langkah " + (i + 1));
+        b.addEventListener("click", function () { go(i); });
+        dotsWrap.appendChild(b);
+        return b;
+      });
+
+      function render() {
+        steps.forEach(function (s, i) {
+          var active = i === current;
+          s.classList.toggle("active", active);
+          s.hidden = !active;
+          dots[i].setAttribute("aria-current", active ? "step" : "false");
+        });
+        btnPrev.hidden = current === 0;
+        btnNext.hidden = current === steps.length - 1;
+      }
+
+      function go(i) {
+        current = Math.max(0, Math.min(steps.length - 1, i));
+        render();
+        var heading = steps[current].querySelector("h1");
+        if (heading) { heading.setAttribute("tabindex", "-1"); heading.focus({ preventScroll: true }); }
+      }
+
+      btnPrev.addEventListener("click", function () { go(current - 1); });
+      btnNext.addEventListener("click", function () { go(current + 1); });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === "Enter") { go(current + 1); }
+        else if (e.key === "ArrowLeft") { go(current - 1); }
+      });
+
+      var startX = null;
+      document.addEventListener("touchstart", function (e) { startX = e.touches[0].clientX; }, { passive: true });
+      document.addEventListener("touchend", function (e) {
+        if (startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 55) { go(dx < 0 ? current + 1 : current - 1); }
+        startX = null;
+      }, { passive: true });
+
+      var hash = parseInt((location.hash || "").replace("#", ""), 10);
+      if (hash >= 1 && hash <= steps.length) current = hash - 1;
+      render();
+    })();
+  </script>
 </body>
 </html>
